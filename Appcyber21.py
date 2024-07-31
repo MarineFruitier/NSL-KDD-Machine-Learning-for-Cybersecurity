@@ -83,12 +83,12 @@ Pour cette analyse, nous utilisons spécifiquement les ensembles de données `KD
 - **KDDTest+.TXT** : Utilisé pour tester nos modèles, ce dataset permet de vérifier la performance des modèles sur des données qui n'ont pas été vues lors de l'entraînement.
 """, unsafe_allow_html=True)
 
-# Fonction st cache pour charger des données
+# Définir la fonction pour charger les données en utilisant st.cache_data
 @st.cache_data
 def load_data(file_path):
     return pd.read_csv(file_path, encoding='ISO-8859-1')
 
-# Afficher les données
+# Définir la fonction pour afficher les données
 def display_data(dataset_name, data):
     st.markdown(f"## Données du dataset {dataset_name}")
     st.write(data)
@@ -105,7 +105,7 @@ if st.button("Afficher KDDTest+"):
 
 # Chiffres Clés en Cybersécurité
 st.markdown("""
-## <span class='subtitle'>Chiffres clés en Cybersécurité</span>
+## <span class='subtitle'>Chiffres Clés en Cybersécurité</span>
 - **2023** : Le coût moyen d'une violation de données a atteint 4,24 millions de dollars.
 - **2024** : On estime que les cyberattaques coûtent aux entreprises plus de 10,5 trillions de dollars par an.
 - **Économie mondiale** : Les cyberattaques dans leur ensemble coûtent à l'économie mondiale plus de 6 000 milliards de dollars par an, selon une étude de Cybersecurity Ventures en 2021.
@@ -115,9 +115,9 @@ st.markdown("""
 Bien que le NSL-KDD ne couvre pas spécifiquement ces types d'attaques, il fournit une base solide pour comprendre et améliorer les systèmes de détection d'intrusion, qui sont essentiels pour protéger contre une variété de menaces.
 """, unsafe_allow_html=True)
 
-# Types d'attaques dans NSL-KDD
+# Types d'Attaques dans NSL-KDD
 st.markdown("""
-## <span class='subtitle'>Types d'attaques représentées dans le NSL-KDD</span>
+## <span class='subtitle'>Types d'Attaques Représentées dans le NSL-KDD</span>
 
 #### 1. DoS (Denial of Service)
 - **Description** : Saturer un service pour le rendre indisponible.
@@ -147,7 +147,7 @@ st.markdown("""
 
 # Titre de la section des graphiques
 st.markdown("""
-## <span class='section-title'>Dashboard des graphiques : Dashboard : visualisation et analyses des données (KDDTrain)</span>
+## <span class='section-title'>Dashboard des Graphiques : Dashboard : visualisation et analyses des données (KDDTrain)</span>
 """, unsafe_allow_html=True)
 
 @st.cache_data
@@ -189,8 +189,8 @@ def map_attack(attack):
 data_train['attack_category'] = data_train['attack'].apply(map_attack)
 
 
-# Répartition des attaques par classes
-st.markdown("<h1 class='chart-title'>Répartition des attaques par classes</h1>", unsafe_allow_html=True)
+# Répartition des Attaques par Classes
+st.markdown("<h1 class='chart-title'>Répartition des Attaques par Classes</h1>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 2])
 with col1:
     labels = ['Normal', 'DoS', 'Probe', 'R2L', 'U2R']
@@ -215,9 +215,9 @@ with col1:
     fig.gca().add_artist(centre_circle)
 
     plt.setp(autotexts, size=10, weight="bold")
-    ax.legend(wedges, labels, title="Attack categories", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
+    ax.legend(wedges, labels, title="Attack Categories", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
 
-    ax.set_title("Classification des attaques")
+    ax.set_title("Classification des Attaques")
 
     st.pyplot(fig)
 with col2:
@@ -225,10 +225,11 @@ with col2:
     st.markdown("<span class='description'>**Analyse** : Les connexions normales sont les plus fréquentes, suivies des attaques DoS puis probe. Les classes R2L et U2R sont particulièrement sous représentées malgré leur importance dans le spectre des cyberattaques, celà nous indique de possibles difficultés pour les modèles de machine learning à détecter ces intrusions. Cette répartition aide à évaluer la robustesse des systèmes de détection d'intrusion (IDS) face à des attaques variées.</span>", unsafe_allow_html=True)
 
 
-# Répartition des types d'attaques
-st.markdown("<h1 class='chart-title'>Répartition des attaques par type</h1>", unsafe_allow_html=True)
+# Répartition des Types d'Attaques
+st.markdown("<h1 class='chart-title'>Répartition des Attaques par Type</h1>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 2])
 with col1:
+    # Filtrer les données pour ne garder que les attaques anormales
     abnormal_data = data_train[data_train['attack_category'] != 'Normal']
 
     attack_counts = abnormal_data['attack_category'].value_counts(normalize=True) * 100
@@ -254,8 +255,8 @@ with col1:
     fig.gca().add_artist(centre_circle)
 
     plt.setp(autotexts, size=10, weight="bold")
-    ax.legend(wedges, labels, title="Attack categories", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
-    ax.set_title("Proportion des attaques par type")
+    ax.legend(wedges, labels, title="Attack Categories", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
+    ax.set_title("Proportion des Attaques par Type")
     st.pyplot(fig)
 with col2:
     st.markdown("<span class='description'>Ce graphique circulaire montre la proportion des différents types d'attaques dans le dataset NSL-KDD.</span>", unsafe_allow_html=True)
@@ -276,22 +277,22 @@ with col2:
     st.markdown("<span class='description'>Ce graphique montre la distribution de la durée des connexions enregistrées dans le dataset NSL-KDD. L'axe des x représente la durée en secondes, tandis que l'axe des y représente la fréquence de chaque durée.</span>", unsafe_allow_html=True)
     st.markdown("<span class='description'>**Analyse** : La majorité des connexions ont une durée très courte, typique des datasets de trafic réseau. Quelques connexions avec des durées exceptionnellement longues peuvent indiquer des activités suspectes.</span>", unsafe_allow_html=True)
 
-# Distribution des Taux d'erreur de serveur par protocole
-st.markdown("<h1 class='chart-title'>Distribution des taux d'erreur de serveur par Protocole</h1>", unsafe_allow_html=True)
+# Distribution des Taux d'Erreur de Serveur par Protocole
+st.markdown("<h1 class='chart-title'>Distribution des Taux d'Erreur de Serveur par Protocole</h1>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 2])
 with col1:
     fig_error_rate = plt.figure(figsize=(12, 6))
     sns.violinplot(x='protocol_type', y='serror_rate', data=data_train, palette='Set3')
-    plt.title('Distribution des taux d\'erreur de serveur par protocole')
-    plt.xlabel('Type de protocole')
-    plt.ylabel('Taux d\'erreur de serveur')
+    plt.title('Distribution des Taux d\'Erreur de Serveur par Protocole')
+    plt.xlabel('Type de Protocole')
+    plt.ylabel('Taux d\'Erreur de Serveur')
     st.pyplot(fig_error_rate)
 with col2:
     st.markdown("<span class='description'>Ce graphique montre la distribution des taux d'erreur de serveur (serror_rate) par type de protocole utilisé dans les connexions (TCP, ICMP, UDP).</span>", unsafe_allow_html=True)
     st.markdown("<span class='description'>**Analyse** : Les connexions TCP montrent des taux d'erreur variés, ce qui peut refléter des scénarios où les connexions TCP réussissent ou échouent complètement. Les erreurs de serveur élevées dans les connexions TCP peuvent indiquer des tentatives de manipulation de paquets ou des attaques visant à provoquer des erreurs de traitement sur les serveurs, telles que les attaques de type buffer overflow. Les connexions ICMP n'ont pas d'erreurs de serveur, ce qui est cohérent avec leur utilisation principalement pour des diagnostics réseau. Les connexions UDP montrent également des variations dans les taux d'erreur, souvent associées à des attaques DoS, ce qui souligne l'importance de surveiller les erreurs de serveur pour ces protocoles afin de détecter rapidement les activités suspectes.</span>", unsafe_allow_html=True)
 
-# Comptes de services de destination les plus utilisés par type d'attaque
-st.markdown("<h1 class='chart-title'>Comptes de services de destination les plus utilisés par type d'attaque</h1>", unsafe_allow_html=True)
+# Comptes de Services de Destination les Plus Utilisés par Type d'Attaque
+st.markdown("<h1 class='chart-title'>Comptes de Services de Destination les Plus Utilisés par Type d'Attaque</h1>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 2])
 with col1:
     fig_services_by_attack, ax = plt.subplots(figsize=(14, 8))
@@ -299,13 +300,13 @@ with col1:
     top_srv_counts = data_train['dst_host_srv_count'].value_counts().index[:10]
     filtered_attack_srv_count = attack_srv_count[top_srv_counts]
     filtered_attack_srv_count.plot(kind='bar', stacked=True, ax=ax, colormap='tab20')
-    ax.set_title('Comptes de services de destination les plus utilisés par type d\'attaque')
+    ax.set_title('Comptes de Services de destination les plus utilisés par type d\'attaque')
     ax.set_xlabel('Type d\'attaque')
     ax.set_ylabel('Nombre d\'observations')
     st.pyplot(fig_services_by_attack)
 with col2:
     st.markdown("<span class='description'>Ce graphique montre les services de destination les plus utilisés pour chaque type d'attaque. Les barres empilées permettent de visualiser la répartition des services parmi différents types d'attaques.</span>", unsafe_allow_html=True)
-    st.markdown("<span class='description'>**Analyse** : Le service avec le compte 255 prédomine, notamment pour les connexions normales, indiquant une forte concentration d'activités réseau régulières vers ce service. Les attaques, en revanche, ciblent une gamme plus diversifiée de services, soulignant que les attaquants visent différents services pour maximiser l'impact. Les attaques DoS et Probe montrent une diversité de cibles, tandis que les attaques R2L et U2R sont associées à des comptes de services moins fréquents, indiquant des tentatives plus ciblées. La concentration élevée sur le service 255 pour certaines attaques, comme neptune, souligne des tentatives de saturation spécifiques.</span>", unsafe_allow_html=True)
+    st.markdown("<span class='description'>**Analyse** : Le service 255 est le plus fréquemment utilisé, notamment pour les connexions normales. D'autres services sont associés à des types d'attaques spécifiques, indiquant des cibles privilégiées pour certains types d'attaques. Par exemple, les services HTTP (port 80) et FTP (port 21) sont souvent ciblés par des attaques DoS et Probe, tandis que les services privés (port 515) sont fréquemment visés par des attaques de type R2L et U2R.</span>", unsafe_allow_html=True)
 
 # Répartition des Flags
 st.markdown("<h1 class='chart-title'>Répartition des Flags</h1>", unsafe_allow_html=True)
@@ -315,15 +316,15 @@ with col1:
     sns.countplot(x='flag', data=data_train, palette='Set1')
     plt.title('Répartition des Flags')
     plt.xlabel('Flag')
-    plt.ylabel('Nombre d\'observations')
+    plt.ylabel('Nombre d\'Observations')
     st.pyplot(fig_flags)
 with col2:
     st.markdown("<span class='description'>Ce graphique montre la répartition des différents flags dans le dataset NSL-KDD. Les flags sont des indicateurs de l'état des connexions TCP.</span>", unsafe_allow_html=True)
     st.markdown("<span class='description'>**Analyse** : Le flag SF est le plus fréquent, indiquant des connexions réussies. Les flags S0 et REJ sont courants dans les scans de port et les tentatives d'intrusion, respectivement.</span>", unsafe_allow_html=True)
 
 
-# Distribution des Total Bytes par type d'Attaque
-st.markdown("<h1 class='chart-title'>Distribution des Total Bytes par type d'attaque</h1>", unsafe_allow_html=True)
+# Distribution des Total Bytes par Type d'Attaque
+st.markdown("<h1 class='chart-title'>Distribution des Total Bytes par Type d'Attaque</h1>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 2])
 with col1:
     fig_total_bytes = plt.figure(figsize=(12, 6))
@@ -343,6 +344,7 @@ st.markdown("<h1 class='chart-title'>Matrice de Corrélation</h1>", unsafe_allow
 col1, col2 = st.columns([1, 2])
 with col1:
     fig_corr_matrix = plt.figure(figsize=(12, 10))
+    # Sélection des colonnes numériques uniquement
     numerical_data = data_train.select_dtypes(include=[np.number])
     correlation_matrix = numerical_data.corr()
     sns.heatmap(correlation_matrix, annot=False, cmap='coolwarm', fmt=".2f")
@@ -359,7 +361,7 @@ with col2:
 st.markdown("""
 <h2 style='color: #1F4E79;'>Conclusion</h2>
 
-<h3 style='color: #4682B4;'>Analyse du dashboard et implications pour la Cybersécurité</h3>
+<h3 style='color: #4682B4;'>Analyse du dashboard et Implications pour la Cybersécurité</h3>
 
 <span class='description'>
 Les graphiques révèlent plusieurs tendances cruciales pour la cybersécurité : 
@@ -395,7 +397,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-## <span class='subtitle'>Choix des métriques à observer</span>
+## <span class='subtitle'>Choix des Métriques à Observer</span>
 
 Dans le contexte de l'analyse du dataset NSL-KDD pour la détection d'intrusions, il est crucial de prioriser la réduction des faux négatifs (FN) avant celle des faux positifs (FP). Les faux négatifs représentent les intrusions qui ne sont pas détectées et, par conséquent, laissent le système vulnérable aux attaques. Une intrusion non détectée peut entraîner des pertes importantes de données, des compromissions de sécurité et des dommages considérables aux infrastructures.
 
@@ -406,7 +408,7 @@ C'est pourquoi nous nous concentrons sur des métriques telles que le recall pou
 
 
 st.markdown("""
-## <span class='subtitle'>Tests et choix du Modèle pour la détection d'intrusion </span>
+## <span class='subtitle'>Tests et Choix du Modèle pour la détection d'intrusion </span>
 
 Pour l'analyse du dataset NSL-KDD, nous avons testé une variété de modèles de machine learning, incluant des modèles supervisés, non supervisés, et des approches de deep learning. La difficulté principale était de lutter contre le surapprentissage 
 (la difficulté du modèle à généraliser sur de nouvelles données) probablement due au déséquilibre des échantillons de données pour les types d'attaques.
@@ -477,7 +479,7 @@ with col1:
 
     ax.set_xlabel('Modèles')
     ax.set_ylabel('Score')
-    ax.set_title('Comparaison des Précisions et Recalls des modèles')
+    ax.set_title('Comparaison des Précisions et Recalls des Modèles')
     ax.set_xticklabels(models, rotation=45)
     ax.legend()
     ax.grid(True)
@@ -492,13 +494,13 @@ st.markdown("""
 Après évaluation, nous avons opté pour une approche de **XGBoost** en utilisant la méthode SMOTE. Ce modèle offre une prédiction équilibré et le meilleur recall, notre choix ce porte donc vers lui pour éviter au maximum les faux négatifs lors de l'adaptation du modèle à des données réelles.
 
 
-**Vous pouvez tester le modèle dans la partie "Simulation", les features avec des données non saisies seront automatiquement remplies par la valeur médiane observée dans le Data_train.**
+**Vous pouvez tester le modèle dans la partie "Simulation".**
 
 **Si vous ne savez pas où trouver vos données de cybersécurité vous pouvez suivre le mini-tutoriel ci dessous en cliquant dessus. Il a été crée afin d'observer de comprendre et de collecter les données en liens avec les 12 features les plus importantes du NSL-KDD.**
 """, unsafe_allow_html=True)
 
 # Section de tutoriel cachée 
-with st.expander("Mini Tutoriel : Accéder aux Logs réseau et entrées pour voir ses information de cybersécurité"):
+with st.expander("Mini Tutoriel : Accéder aux Logs Réseau et Entrées pour voir ses information de cybersécurité"):
     st.markdown("""
     ### Qu'est-ce qu'un log réseau ?
     Un log réseau est un fichier ou une base de données qui enregistre les activités du réseau. Cela inclut des informations sur les connexions établies, les tentatives de connexion échouées, les volumes de données transférées, etc. Ces logs sont généralement générés par des dispositifs réseau tels que les routeurs, les pare-feu, et les serveurs.
@@ -539,7 +541,7 @@ with st.expander("Mini Tutoriel : Accéder aux Logs réseau et entrées pour voi
     cat /var/log/syslog | grep "network"
     ```
     
-    **Systèmes de gestion de Logs centralisés :**
+    **Systèmes de Gestion de Logs Centralisés :**
     
     - Exemples de systèmes : Splunk, ELK Stack (Elasticsearch, Logstash, Kibana), Graylog.
     - Connectez-vous à l'interface web de votre système de gestion de logs.
@@ -547,7 +549,7 @@ with st.expander("Mini Tutoriel : Accéder aux Logs réseau et entrées pour voi
     """)
 
     st.markdown("""
-    ### Guide pour accéder à ses principales informations de sécurité
+    ### Guide pour Accéder à ses Principales Informations de Sécurité
     
     **Duration (duration) : La durée d'une connexion**
     
@@ -629,7 +631,7 @@ with st.expander("Mini Tutoriel : Accéder aux Logs réseau et entrées pour voi
     """)
 
     st.markdown("""
-    ### Exemple de Journal de connexion
+    ### Exemple de Journal de Connexion
     
     Voici un exemple de ce à quoi peuvent ressembler les entrées de log :
     
@@ -772,9 +774,9 @@ try:
     for key, value in default_values.items():
         if key not in data_dict:
             data_dict[key] = value
-
+    
     st.write("Données saisies :", data_dict)
-
+    
     if st.button('Faire une Prédiction'):
         predictions = make_prediction(data_dict)
         threshold = 0.4
