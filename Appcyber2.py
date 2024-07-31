@@ -59,7 +59,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-
 # Introduction
 st.markdown("""
 # <span class='title'>NSL-KDD Insights: Analyse des Intrusions Cybernétiques 🔐</span>
@@ -722,11 +721,10 @@ def fit_encoder(data):
     encoder.fit(data[['protocol_type', 'flag', 'service']])
     return encoder
 
+data_train = load_training_data()
 encoder = fit_encoder(data_train)
 
-# Charger le modèle
-model = joblib.load('modelXGboost1.pkl')
-# Fonction de prétraitement
+# Fonction pour prétraiter les données
 def preprocess_data(data):
     selected_features = ['num_failed_logins', 'dst_host_srv_serror_rate', 'count', 'serror_rate', 'dst_host_diff_srv_rate',
                          'dst_host_serror_rate', 'diff_srv_rate', 'dst_host_same_src_port_rate', 'dst_host_count',
@@ -754,7 +752,7 @@ def make_prediction(data):
     predictions = model.predict(dmatrix)
     return predictions
 
-# Interface utilisateur Streamlit
+# Interface utilisateur
 st.title('Détection d\'Intrusion - Modèle de simulation')
 
 st.markdown("<h3 style='color: #1F4E79;'>Saisie des Données au format JSON</h3>", unsafe_allow_html=True)
@@ -763,17 +761,17 @@ st.markdown("<h3 style='color: #1F4E79;'>Saisie des Données au format JSON</h3>
 example_json = json.dumps(example_values, indent=4)
 st.markdown(f"**Exemple de format JSON attendu :**\n```json\n{example_json}\n```")
 
-data_json = st.text_area("Entrez vos données au format JSON:", json.dumps(default_values, indent=4))
+data_json = st.text_area("Entrez vos données au format JSON ici:", json.dumps(default_values, indent=4))
 
 try:
     data_dict = json.loads(data_json)
     for key, value in default_values.items():
         if key not in data_dict:
             data_dict[key] = value
-
+    
     st.write("Données saisies :", data_dict)
-
-    if st.button('Faire une Prédiction'):
+    
+    if st.button('Faire une prédiction'):
         predictions = make_prediction(data_dict)
         threshold = 0.4
         prediction_label = "Intrusion probable" if predictions[0] >= threshold else "Intrusion peu probable"
