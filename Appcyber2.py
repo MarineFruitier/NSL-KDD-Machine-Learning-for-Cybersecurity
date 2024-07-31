@@ -11,6 +11,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.ensemble import StackingClassifier
 import xgboost as xgb
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 
 # Configuration de la page
