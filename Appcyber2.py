@@ -636,7 +636,10 @@ with st.expander("Mini Tutoriel : Accéder aux Logs réseau et entrées pour voi
         ```
     
     """)
+    
+    
 # Préparation du modèle, 
+
 
 # Charger les données 
 @st.cache_data
@@ -752,7 +755,7 @@ def make_prediction(data):
     predictions = model.predict(dmatrix)
     return predictions
 
-# Interface utilisateur Streamlit
+# Interface utilisateur
 st.title('Détection d\'Intrusion - Modèle de simulation')
 
 st.markdown("<h3 style='color: #1F4E79;'>Saisie des Données au format JSON</h3>", unsafe_allow_html=True)
@@ -761,7 +764,7 @@ st.markdown("<h3 style='color: #1F4E79;'>Saisie des Données au format JSON</h3>
 example_json = json.dumps(example_values, indent=4)
 st.markdown(f"**Exemple de format JSON attendu :**\n```json\n{example_json}\n```")
 
-data_json = st.text_area("Entrez vos données au format JSON:", json.dumps(default_values, indent=4))
+data_json = st.text_area("Entrez vos données au format JSON ici:", json.dumps(default_values, indent=4))
 
 try:
     data_dict = json.loads(data_json)
@@ -771,7 +774,7 @@ try:
     
     st.write("Données saisies :", data_dict)
     
-    if st.button('Faire une Prédiction'):
+    if st.button('Faire une prédiction'):
         predictions = make_prediction(data_dict)
         threshold = 0.4
         prediction_label = "Intrusion probable" if predictions[0] >= threshold else "Intrusion peu probable"
