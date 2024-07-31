@@ -641,7 +641,7 @@ with st.expander("Mini Tutoriel : Accéder aux Logs réseau et entrées pour voi
 # Préparation du modèle, 
 
 
-# Charger les données 
+# Charger les données et calculer les médianes
 @st.cache_data
 def load_training_data():
     data_train = pd.read_csv('KDDTrain+.txt', encoding='ISO-8859-1')
@@ -690,32 +690,6 @@ default_values = {
     "service": "http"
 }
 
-# Définir des exemples de format attendu pour chaque valeur
-example_values = {
-    "num_failed_logins": 0,
-    "dst_host_srv_serror_rate": 0.0,
-    "count": 0,
-    "serror_rate": 0.0,
-    "dst_host_diff_srv_rate": 0.0,
-    "dst_host_serror_rate": 0.2,
-    "diff_srv_rate": 0.0,
-    "dst_host_same_src_port_rate": 0.0,
-    "dst_host_count": 150,
-    "dst_host_srv_diff_host_rate": 0.05,
-    "duration": 0,
-    "total_bytes": 0,
-    "logged_in": 1,
-    "land": 0,
-    "hot": 0,
-    "same_srv_rate": 1.0,
-    "dst_host_srv_count": 255,
-    "wrong_fragment": 0,
-    "su_attempted": 0,
-    "protocol_type": "tcp",  
-    "flag": "SF",
-    "service": "http"
-}
-
 # Encoder
 @st.cache_data
 def fit_encoder(data):
@@ -725,18 +699,27 @@ def fit_encoder(data):
 
 encoder = fit_encoder(data_train)
 
+# Préparation du scaler à partir des données d'entraînement
+@st.cache_data
+def fit_scaler(data):
+    scaler = StandardScaler()
+    data_scaled = scaler.fit(data)
+    return scaler
+
+scaler = fit_scaler(data_train)
+
 # Charger le modèle
 model = joblib.load('modelXGboost1.pkl')
+
 # Fonction de prétraitement
-def preprocess_data(data):
+def preprocess_data(data, scaler, encoder):
     selected_features = ['num_failed_logins', 'dst_host_srv_serror_rate', 'count', 'serror_rate', 'dst_host_diff_srv_rate',
                          'dst_host_serror_rate', 'diff_srv_rate', 'dst_host_same_src_port_rate', 'dst_host_count',
                          'dst_host_srv_diff_host_rate', 'duration', 'total_bytes', 'logged_in', 'land', 'hot',
                          'same_srv_rate', 'dst_host_srv_count', 'wrong_fragment', 'su_attempted']
     data_scaled = pd.DataFrame([data])[selected_features]
 
-    scaler = StandardScaler()
-    data_scaled = scaler.fit_transform(data_scaled)
+    data_scaled = scaler.transform(data_scaled)
 
     encoded_features = encoder.transform(pd.DataFrame([data])[['protocol_type', 'flag', 'service']])
     encoded_columns = encoder.get_feature_names_out(['protocol_type', 'flag', 'service'])
@@ -749,10 +732,9 @@ def preprocess_data(data):
     return X
 
 # Fonction de prédiction
-def make_prediction(data):
-    X = preprocess_data(data)
-    dmatrix = xgb.DMatrix(X)
-    predictions = model.predict(dmatrix)
+def make_prediction(data, scaler, encoder, model):
+    X = preprocess_data(data, scaler, encoder)
+    predictions = model.predict(X)
     return predictions
 
 # Interface utilisateur
@@ -775,7 +757,7 @@ try:
     st.write("Données saisies :", data_dict)
     
     if st.button('Faire une prédiction'):
-        predictions = make_prediction(data_dict)
+        predictions = make_prediction(data_dict, scaler, encoder, model)
         threshold = 0.4
         prediction_label = "Intrusion probable" if predictions[0] >= threshold else "Intrusion peu probable"
         st.write(f"Prédiction : {prediction_label} (Score: {predictions[0]:.4f})")
