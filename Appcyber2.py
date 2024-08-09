@@ -66,19 +66,13 @@ st.markdown("""
 # Introduction
 st.markdown("""
 # <span class='title'>NSL-KDD Insights: Analyse des Intrusions Cybernétiques 🔐</span>
-
 **Cette application démontre l'utilisation du machine learning pour améliorer la détection des intrusions et la cybersécurité à l'aide du dataset NSL-KDD. Elle inclut une analyse des données via des visualisations et une démonstration de modèles de machine learning appliqués aux données, vous trouverez un mini-tutoriel afin de savoir où surveiller et récupérer vos données cyber en lien avec le dataset et afin de tester vos propres données dans notre modèle.**
-
 ## <span class='subtitle'>Contexte</span>
 Les données du dataset NSL-KDD proviennent d'une version améliorée du dataset KDD'99, qui est lui-même basé sur les données capturées lors de la compétition DARPA 1998. Cette compétition a été organisée par le MIT Lincoln Laboratory,  une agence du Département de la Défense des États-Unis, et visait à évaluer les systèmes de détection d'intrusion (IDS). Les données de la compétition DARPA 1998 incluent une large variété de scénarios de trafic réseau, comprenant à la fois des connexions normales et diverses attaques simulées.
-
 Le dataset KDD'99 a été dérivé de ces données, mais il présentait plusieurs problèmes comme des enregistrements redondants et des biais en faveur des enregistrements fréquents, ce qui a limité son efficacité pour l'évaluation des IDS. Pour pallier ces limitations, le dataset NSL-KDD a été développé en 2009 par l'Université du Nouveau-Brunswick, apportant des améliorations telles que la suppression des redondances et une meilleure distribution des niveaux de difficulté des enregistrements.
-
 En tant que benchmark, il aide à améliorer la détection des intrusions dans les systèmes modernes et sensibilise aux différents types d'attaques et leurs impacts.
-
 Afin de faciliter son utilisation et d'améliorer la comparabilité des résultats, le NSL-KDD est divisé en 8 sous-ensembles de données, chacun ayant des caractéristiques spécifiques.
 Pour cette analyse, nous utilisons spécifiquement les ensembles de données `KDDTrain+.TXT` et `KDDTest+.TXT`. 
-
 - **KDDTrain+.TXT** : Utilisé pour l'entraînement de nos modèles et pour la partie visualisation.
 - **KDDTest+.TXT** : Utilisé pour tester nos modèles, ce dataset permet de vérifier la performance des modèles sur des données qui n'ont pas été vues lors de l'entraînement.
 """, unsafe_allow_html=True)
@@ -111,32 +105,27 @@ st.markdown("""
 - **Économie mondiale** : Les cyberattaques dans leur ensemble coûtent à l'économie mondiale plus de 6 000 milliards de dollars par an, selon une étude de Cybersecurity Ventures en 2021.
 - **Temps de récupération** : Selon une enquête de Radware en 2021, il faut en moyenne 23 jours pour se remettre d'une cyberattaque.
 - **Attaques les plus fréquentes** : Phishing, Malware, Ransomware.
-
 Bien que le NSL-KDD ne couvre pas spécifiquement ces types d'attaques, il fournit une base solide pour comprendre et améliorer les systèmes de détection d'intrusion, qui sont essentiels pour protéger contre une variété de menaces.
 """, unsafe_allow_html=True)
 
 # Types d'Attaques dans NSL-KDD
 st.markdown("""
 ## <span class='subtitle'>Types d'Attaques Représentées dans le NSL-KDD</span>
-
 #### 1. DoS (Denial of Service)
 - **Description** : Saturer un service pour le rendre indisponible.
 - **Coût global** : Les attaques DoS coûtent aux entreprises des milliards de dollars chaque année. Par exemple, une étude de Netscout en 2022 a estimé que les attaques DoS pourraient coûter jusqu'à 2,3 milliards de dollars par an.
 - **Fréquence** : En 2021, Cloudflare a signalé une augmentation de 125% des attaques DoS par rapport à l'année précédente.
 - **Exemple notable** : En 2016, l'attaque DDoS sur Dyn a causé des interruptions majeures sur des sites comme Twitter, Reddit et Netflix, affectant des millions d'utilisateurs.
-
 #### 2. Probe
 - **Description** : Tentative d'exploration pour découvrir des vulnérabilités.
 - **Coût global** : Bien que plus difficiles à chiffrer, les attaques de type probe peuvent mener à des intrusions plus graves. Elles sont souvent les prémisses d'attaques plus destructrices comme les DoS ou les compromissions de données.
 - **Fréquence** : Les scans de ports, une forme courante de probe, sont très fréquents. Une étude de Palo Alto Networks en 2022 a révélé que 95% des organisations ont détecté des tentatives de scans de ports au moins une fois par mois.
 - **Exemple notable** : En 2020, un scan massif de ports a été détecté ciblant des vulnérabilités dans les systèmes de gestion de base de données comme MySQL et PostgreSQL. Cela a conduit à des attaques de ransomware sur des entreprises telles que Cognizant et Travelex.
-
 #### 3. U2R (User to Root)
 - **Description** : L'utilisateur cherche à obtenir des accès root.
 - **Coût global** : Les attaques U2R sont particulièrement dangereuses car elles permettent à un attaquant de prendre un contrôle total du système, potentiellement coûtant des millions en termes de pertes de données et de restauration.
 - **Fréquence** : Bien que moins fréquentes que les DoS, ces attaques sont critiques en termes d'impact. Une étude de Verizon en 2021 a montré que les attaques U2R représentent environ 2% des attaques globales mais peuvent avoir des conséquences dévastatrices.
 - **Exemple notable** : En 2019, l'attaque "Dirty COW" (CVE-2016-5195) a exploité une vulnérabilité dans le noyau Linux, permettant aux attaquants d'obtenir des privilèges root sur les systèmes affectés, compromettant des données telles que les informations d'identification des utilisateurs et les fichiers système.
-
 #### 4. R2L (Remote to Local)
 - **Description** : Tentative d'intrusion depuis une machine distante.
 - **Coût global** : Les attaques R2L peuvent entraîner des pertes financières importantes. Une enquête de Ponemon Institute en 2022 a estimé que les violations de sécurité coûtent en moyenne 4,24 millions de dollars par incident.
@@ -360,33 +349,24 @@ with col2:
 
 st.markdown("""
 <h2 style='color: #1F4E79;'>Conclusion</h2>
-
 <h3 style='color: #4682B4;'>Analyse du dashboard et Implications pour la Cybersécurité</h3>
-
 <span class='description'>
 Les graphiques révèlent plusieurs tendances cruciales pour la cybersécurité : 
-
-
 **La prédominance des attaques DoS**, qui représentent 78.3% des incidents, indique que **les entreprises doivent renforcer leurs défenses contre ces attaques massives** qui saturent les ressources des services. 
 En parallèle, les scans de ports (attacks Probe) montrent une diversité dans les services ciblés, ce qui suggère la nécessité de surveiller attentivement les tentatives d'accès aux services variés pour prévenir les intrusions.
-
 La corrélation élevée entre certaines caractéristiques, comme le taux d'erreur de serveur et les attaques DoS, souligne **l'importance de surveiller les erreurs fréquentes** pour détecter rapidement les activités suspectes. 
 De plus, *les flags TCP comme S0 et REJ sont indicateurs de tentatives de scans de port* et d'intrusions, respectivement, nécessitant une attention particulière à ces états de connexion pour une détection précoce.
-
 L'analyse des total bytes transférés et des durées de connexion offre des perspectives supplémentaires. 
 Les attaques comme `portsweep` et `warezmaster` montrent une large variation de données transférées, soulignant l'importance de surveiller les comportements de transfert de données pour identifier les activités anormales. 
 Enfin, **la durée des connexions, souvent plus courte pour les connexions normales**, peut aider à distinguer les activités malveillantes de celles légitimes.
-
 La répartition des services de destination les plus utilisés montre que **certains services sont particulièrement vulnérables et fréquemment ciblés**.
  Une attention particulière doit être portée aux services couramment utilisés comme **HTTP et FZZ**, qui sont souvent exploités par des attaquants.
-
 **Recommandations Clés**:
 - **Renforcer les Défenses Contre les DoS** : Mettez en place des systèmes robustes pour prévenir les saturations de ressources et les interruptions de service.
 - **Surveillance des Ports** : Surveillez attentivement les tentatives d'accès aux services variés et configurez des règles de pare-feu précises pour prévenir les intrusions.
 - **Détection Précoce** : Utilisez les erreurs de serveur et les flags TCP comme indicateurs pour repérer rapidement les comportements suspects.
 - **Analyse des Transferts de Données** : Surveillez les volumes de données transférées pour identifier les activités anormales, notamment celles avec de larges variations.
 - **Protection des Services Vulnérables** : Renforcez la sécurité des services fréquemment ciblés, comme HTTP et FTP, pour réduire les risques d'exploitation.
-
 En conclusion, ces analyses offrent une compréhension détaillée des comportements des intrusions et des vulnérabilités du réseau et nous donne des pistes pour se prévenir du mieux possible face aux cyber-intrusions.
 </span>
 """, unsafe_allow_html=True)
@@ -398,21 +378,16 @@ st.markdown("""
 
 st.markdown("""
 ## <span class='subtitle'>Choix des Métriques à Observer</span>
-
 Dans le contexte de l'analyse du dataset NSL-KDD pour la détection d'intrusions, il est crucial de prioriser la réduction des faux négatifs (FN) avant celle des faux positifs (FP). Les faux négatifs représentent les intrusions qui ne sont pas détectées et, par conséquent, laissent le système vulnérable aux attaques. Une intrusion non détectée peut entraîner des pertes importantes de données, des compromissions de sécurité et des dommages considérables aux infrastructures.
-
 Ensuite, bien que les faux positifs puissent entraîner des alertes superflues et une charge de travail accrue pour les analystes, leur impact est généralement moins sévère que celui des intrusions non détectées.
-
 C'est pourquoi nous nous concentrons sur des métriques telles que le recall pour minimiser les faux négatifs, tout en surveillant la précision pour gérer les faux positifs. Une attention particulière est également portée aux autres métriques pour assurer un équilibre global entre la sensibilité et la spécificité du modèle.
 """, unsafe_allow_html=True)
 
 
 st.markdown("""
 ## <span class='subtitle'>Tests et Choix du Modèle pour la détection d'intrusion </span>
-
 Pour l'analyse du dataset NSL-KDD, nous avons testé une variété de modèles de machine learning, incluant des modèles supervisés, non supervisés, et des approches de deep learning. La difficulté principale était de lutter contre le surapprentissage 
 (la difficulté du modèle à généraliser sur de nouvelles données) probablement due au déséquilibre des échantillons de données pour les types d'attaques.
-
 ### <span class='chart-title'>Modèles de Machine Learning Supervisé</span>
 Nous avons expérimenté avec plusieurs algorithmes de machine learning supervisé, tels que :
 - **Régression Logistique**
@@ -422,36 +397,27 @@ Nous avons expérimenté avec plusieurs algorithmes de machine learning supervis
 - **AdaBoost**
 - **XGBoost**
 - **LightGBM**
-
 Le modèle XGBoost présente les meilleures performance pour les modèles supervisé. Le modèle de stacking avec XGBoost en métat apprenan est également très correct (meilleure précision mais moins bon recall).
-
 Le XGboost s'est démarqué pour ses résultats au niveau du recall.
-
 ### <span class='chart-title'>Modèles de Deep Learning</span>
 Les architectures de deep learning testées incluent :
 - **CNN (Convolutional Neural Network)**
 - **RNN (Recurrent Neural Network)**
 - **FNN (Feedforward Neural Network)**
 - **ANN (Artificial Neural Network)**
-
 Le modèle ANN a montré les meilleures performances parmi les modèles de deep learning.
-
 ### <span class='chart-title'>Modèles Non Supervisés</span>
 Pour la détection de patterns sans labels nous avons utilisé le - **KNN (K-Nearest Neighbors)**
-
 ### <span class='chart-title'>Prétraitement des Données</span>
 Le prétraitement des données a inclus plusieurs étapes essentielles :
 - **Regroupement des Bytes** : Combinaison des bytes source et destination pour obtenir une métrique de total bytes.
 - **Sélection des Features Pertinentes** : Analyse de corrélation pour identifier et réduire la dimensionnalité, utilisation d'un algorithme de selection des meilleures features selon leur score .
 - **Équilibrage des Classes** : Utilisation de SMOTE pour équilibrer les classes.
-
 ### <span class='chart-title'>Techniques pour Combattre l'Overfitting</span>
 Pour améliorer la robustesse des modèles, nous avons utilisé :
 - **Régularisation (L2)** : Appliquée dans les modèles de régression et de SVM pour pénaliser les coefficients excessifs.
 - **Validation Croisée** : k-fold cross-validation pour évaluer la performance de manière fiable.
 - **Ensemble Methods** : Utilisation de Random Forest, AdaBoost et LightGBM pour une meilleure généralisation.
-
-
 ### <span class='chart-title'>Résultats des modèles</span>
 """, unsafe_allow_html=True)
 
@@ -490,12 +456,8 @@ with col1:
 # Choix du modèle final
 st.markdown("""
 ## <span class='subtitle'>Choix du modèle final : Modèle XGBoost</span>
-
 Après évaluation, nous avons opté pour une approche de **XGBoost** en utilisant la méthode SMOTE. Ce modèle offre une prédiction équilibré et le meilleur recall, notre choix ce porte donc vers lui pour éviter au maximum les faux négatifs lors de l'adaptation du modèle à des données réelles.
-
-
 **Vous pouvez tester le modèle dans la partie "Simulation".**
-
 **Si vous ne savez pas où trouver vos données de cybersécurité vous pouvez suivre le mini-tutoriel ci dessous en cliquant dessus. Il a été crée afin d'observer de comprendre et de collecter les données en liens avec les 12 features les plus importantes du NSL-KDD.**
 """, unsafe_allow_html=True)
 
@@ -638,7 +600,6 @@ with st.expander("Mini Tutoriel : Accéder aux Logs Réseau et Entrées pour voi
     ```
     timestamp="2023-06-15T10:00:00Z" protocol="TCP" service="HTTP" src_bytes=500 dst_bytes=1500 duration=60 logged_in=1
     timestamp="2023-06-15T10:05:00Z" protocol="UDP" service="DNS" src_bytes=200 dst_bytes=300 duration=5 logged_in=0
-
         ```
     
     """)
@@ -776,11 +737,7 @@ try:
             data_dict[key] = value
 
     st.write("Données saisies :", data_dict)
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 6227716fed978207601b5b2a1e21a5ebc394f9b3
     if st.button('Faire une Prédiction'):
         predictions = make_prediction(data_dict)
         threshold = 0.4
